@@ -17,7 +17,10 @@
 \newboolean{showcomments}
 \setboolean{showcomments}{true}% toggle to show or hide edits
 
-
+\DeclareOption{hideall}{%  add option to disable comments
+  \setboolean{showedits}{false}%
+  \setboolean{showcomments}{false}%
+}
 \DeclareOption{hideedits}{%  add option to disable comments
   \setboolean{showedits}{false}%
 }
@@ -53,10 +56,11 @@
             \textcolor{red}{\sout{#2}} {\ra}
             \textcolor{blue}{\uline{#3}}}               % please change
 }{
+	\newcommand{\rephrase}[1]{#1}
 	\newcommand{\ugh}[1]{#1}
-	\newcommand{\ins}[1]{#1}
-	\newcommand{\del}[1]{}
-	\newcommand{\chg}[3][]{#3}
+	\newcommand{\ins}[1]{}
+	\newcommand{\del}[1]{#1}
+	\newcommand{\chg}[3][]{}
 }
 
 % ============================================================================
@@ -76,11 +80,6 @@
  %{\textcolor{#3}{\sf\small$\blacktriangleright$\textit{#2}$\blacktriangleleft$}}}}
  {\textcolor{#3}{\sf\small\textit{#2}}}}}
 {\newcommand{\nbc}[3]{}
- 
-\renewcommand{\ugh}[1]{#1}  % please rephrase
-\renewcommand{\ins}[1]{#1}  % please insert
-\renewcommand{\del}[1]{}    % please delete
-\renewcommand{\chg}[2]{#2}  % please change
 }
 
 \newcommand{\nb}[2]{\nbc{#1}{#2}{orange}}
