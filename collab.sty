@@ -92,13 +92,13 @@
 \newcommand\DONE[1]{\nbc{DONE}{#1}{gray}}
 \newcommand\REM[1]{\nbc{Remember}{#1}{red}}
 
-\def\collabAuthor#1#2#3{%
+\def\collabAuthor#1#2#3#4{%
 	%Defines three new comments
 	%for example
 	%\collabAuthor{sm}{orange}{Stefan Marr}
 	% results in \sm[1], \smtodo[1], \smdone[1]
 	\expandafter\newcommand\expandafter{\csname #1\endcsname}[1]{%
-		\nbc{\MakeUppercase{#1}}{##1}{#2}}%
+		\nbc{\MakeUppercase{#1}}{#4##1}{#2}}%
 
 	\expandafter\newcommand\expandafter{\csname #1todo\endcsname}[1]{%
 		\nbc{\MakeUppercase{#1} TODO}{##1}{#2}}%
