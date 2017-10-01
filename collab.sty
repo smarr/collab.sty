@@ -28,7 +28,7 @@
 
 % Based on code 'borrowed' from some colaborative work with Camillo Bruni
 
-\newcommand{\ra}{$\rightarrow$\xspace}
+\newcommand{\ra}{\ensuremath{\rightarrow}\xspace}
 
 
 \ifthenelse{\boolean{showedits}}
@@ -38,14 +38,14 @@
 	\newcommand{\ugh}[1]{\textcolor{red}{\uwave{#1}}}   % please rephrase
 	\newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}}  % please insert
 	\newcommand{\del}[1]{\textcolor{red}{\sout{#1}}}    % please delete
-	\newcommand{\chg}[2]{
-            \textcolor{red}{\sout{#1}}{\ra}
-            \textcolor{blue}{\uline{#2}}}               % please change
+	\newcommand{\chg}[3][]{%
+            \textcolor{red}{\sout{#2}} {\ra}
+            \textcolor{blue}{\uline{#3}}}               % please change
 }{
 	\newcommand{\ugh}[1]{#1}
 	\newcommand{\ins}[1]{#1}
 	\newcommand{\del}[1]{}
-	\newcommand{\chg}[2]{#2}
+	\newcommand{\chg}[3][]{#3}
 }
 
 % ============================================================================
