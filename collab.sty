@@ -30,8 +30,14 @@
 % Based on code 'borrowed' from some colaborative work with Camillo Bruni
 
 
+%% LNCS already has a \note macro
 
-\newenvironment{note}{\obeyspaces\obeylines}{}
+\makeatletter
+\@ifundefined{note}{%
+\newenvironment{note}{\obeyspaces\obeylines}{}%
+}{}
+\makeatother
+
 
 \newcommand{\ra}{\ensuremath{\rightarrow}\xspace}
 
