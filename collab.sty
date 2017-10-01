@@ -3,7 +3,7 @@
 
 \RequirePackage{ifthen}
 \RequirePackage[normalem]{ulem} % for \sout
-\RequirePackage{xcolor}
+\RequirePackage[svgnames]{xcolor}
 \RequirePackage{amssymb}
 
 \newboolean{showedits}
@@ -28,6 +28,8 @@
 
 \ifthenelse{\boolean{showedits}}
 {
+	\newcommand{\spelling}[1]{\textcolor{red}{\uwave{#1}}}   % please rephrase
+	\newcommand{\rephrase}[1]{\textcolor{red}{\uwave{#1}}}   % please rephrase
 	\newcommand{\ugh}[1]{\textcolor{red}{\uwave{#1}}}   % please rephrase
 	\newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}}  % please insert
 	\newcommand{\del}[1]{\textcolor{red}{\sout{#1}}}    % please delete
@@ -55,7 +57,8 @@
 %{\newcommand{\nb}[2]{{\yellowbox{#1}\triangles{#2}}}
 {\newcommand{\nbc}[3]{
  {\colorbox{#3}{\bfseries\sffamily\scriptsize\textcolor{white}{#1}}}
- {\textcolor{#3}{\sf\small$\blacktriangleright$\textit{#2}$\blacktriangleleft$}}}}
+ %{\textcolor{#3}{\sf\small$\blacktriangleright$\textit{#2}$\blacktriangleleft$}}}}
+ {\textcolor{#3}{\sf\small\textit{#2}}}}}
 {\newcommand{\nbc}[3]{}
  
 \renewcommand{\ugh}[1]{#1}  % please rephrase
@@ -69,14 +72,28 @@
 \newcommand\rev[2]{\nb{TODO (rev #1)}{#2}} % reviewer comments
 \newcommand\fix[1]{\nb{FIX}{#1}}
 \newcommand\todo[1]{\nb{TO DO}{#1}}
+\newcommand\DONE[1]{\nbc{DONE}{#1}{gray}}
+\newcommand\REM[1]{\nbc{Remember}{#1}{red}}
 
 \def\collabAuthor#1#2#3{%
-	%Defines two new comments
+	%Defines three new comments
 	%for example
 	%\collabAuthor{sm}{orange}{Stefan Marr}
-	% results in \sm[1] and \smtodo[1]
+	% results in \sm[1], \smtodo[1], \smdone[1]
 	\expandafter\newcommand\expandafter{\csname #1\endcsname}[1]{%
-		\nbc{\noexpand\MakeUppercase{#1}}{##1}{#2}}%
+		\nbc{\MakeUppercase{#1}}{##1}{#2}}%
+
+	\expandafter\newcommand\expandafter{\csname #1todo\endcsname}[1]{%
+		\nbc{\MakeUppercase{#1} TODO}{##1}{#2}}%
+
+	\expandafter\newcommand\expandafter{\csname #1done\endcsname}[1]{%
+		\nbc{\MakeUppercase{#1} DONE}{##1}{gray}}%
+
+	\expandafter\newcommand\expandafter{\csname #1note\endcsname}[1]{%
+		\nbc{\MakeUppercase{#1} Note}{##1}{gray}}%
+	
+	\expandafter\newcommand\expandafter{\csname #1Q\endcsname}[1]{%
+		\nbc{\MakeUppercase{#1} Q:}{##1}{ForestGreen}}%
 }
 % remember: http://tex.stackexchange.com/questions/451/when-to-use-edef-noexpand-and-expandafter
 
