@@ -1,0 +1,92 @@
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{collab}[2011/03/22 0.1 Stefan Marr]
+
+\RequirePackage{ifthen}
+\RequirePackage[normalem]{ulem} % for \sout
+\RequirePackage{xcolor}
+\RequirePackage{amssymb}
+
+\newboolean{showedits}
+\setboolean{showedits}{true}  % toggle to show or hide edits
+\newboolean{showcomments}
+\setboolean{showcomments}{true}% toggle to show or hide edits
+
+
+\DeclareOption{hideedits}{%  add option to disable comments
+	\setboolean{showedits}{false}%
+}
+\DeclareOption{hidecomments}{%  add option to disable comments
+	\setboolean{showcomments}{false}%
+}
+
+\ProcessOptions\relax	% actually apply options that were suplied to package
+
+% Based on code 'borrowed' from some colaborative work with Camillo Bruni
+
+\newcommand{\ra}{$\rightarrow$\xspace}
+
+
+\ifthenelse{\boolean{showedits}}
+{
+	\newcommand{\ugh}[1]{\textcolor{red}{\uwave{#1}}}   % please rephrase
+	\newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}}  % please insert
+	\newcommand{\del}[1]{\textcolor{red}{\sout{#1}}}    % please delete
+	\newcommand{\chg}[2]{
+            \textcolor{red}{\sout{#1}}{\ra}
+            \textcolor{blue}{\uline{#2}}}               % please change
+}{
+	\newcommand{\ugh}[1]{#1}
+	\newcommand{\ins}[1]{#1}
+	\newcommand{\del}[1]{}
+	\newcommand{\chg}[2]{#2}
+}
+
+% ============================================================================
+% Put edit comments in a really ugly standout display
+%\usepackage{ifthen}
+
+
+\newcommand{\yellowbox}[1]{
+        \fcolorbox{gray}{yellow}{\bfseries\sffamily\scriptsize#1}}
+\newcommand{\triangles}[1]{{
+        \sf\small$\blacktriangleright$\textit{#1}$\blacktriangleleft$}}
+
+\ifthenelse{\boolean{showcomments}}
+%{\newcommand{\nb}[2]{{\yellowbox{#1}\triangles{#2}}}
+{\newcommand{\nbc}[3]{
+ {\colorbox{#3}{\bfseries\sffamily\scriptsize\textcolor{white}{#1}}}
+ {\textcolor{#3}{\sf\small$\blacktriangleright$\textit{#2}$\blacktriangleleft$}}}}
+{\newcommand{\nbc}[3]{}
+ 
+\renewcommand{\ugh}[1]{#1}  % please rephrase
+\renewcommand{\ins}[1]{#1}  % please insert
+\renewcommand{\del}[1]{}    % please delete
+\renewcommand{\chg}[2]{#2}  % please change
+}
+
+\newcommand{\nb}[2]{\nbc{#1}{#2}{orange}}
+\newcommand{\here}{\yellowbox{$\Rightarrow$ CONTINUE HERE $\Leftarrow$}}
+\newcommand\rev[2]{\nb{TODO (rev #1)}{#2}} % reviewer comments
+\newcommand\fix[1]{\nb{FIX}{#1}}
+\newcommand\todo[1]{\nb{TO DO}{#1}}
+
+\def\collabAuthor#1#2#3{%
+	%Defines two new comments
+	%for example
+	%\collabAuthor{sm}{orange}{Stefan Marr}
+	% results in \sm[1] and \smtodo[1]
+	\expandafter\newcommand\expandafter{\csname #1\endcsname}[1]{%
+		\nbc{\noexpand\MakeUppercase{#1}}{##1}{#2}}%
+}
+% remember: http://tex.stackexchange.com/questions/451/when-to-use-edef-noexpand-and-expandafter
+
+% author macros --------------------------------------------------------------
+%\collabAuthor{cb}{red}{Camillo Bruni}
+%\collabAuthor{sm}{orange}{Stefan Marr}
+
+
+%\newcommand\cb[1]{\nbc{CB}{#1}{red}}    % Camillo Bruni
+%\newcommand\sm[1]{\nbc{SM}{#1}{orange}} % Stefan Marr 
+%\newcommand\td[1]{\nbc{TD}{#1}{olive}}  % Theo D'Hondt 
+%\newcommand\tc[1]{\nbc{TC}{#1}{blue}}   % Tom van Cutsem 
+%\newcommand\md[1]{\nbc{MD}{#1}{violet}} % Marcus Denker 
