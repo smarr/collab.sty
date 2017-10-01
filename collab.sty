@@ -1,5 +1,10 @@
+% SMTODO: add some priority options to the tags ;)
+
+%% Change log:
+%%  0.2 - add sectioninfo etc to allow annotation of the outline/ToC
+
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesPackage{collab}[2011/03/22 0.1 Stefan Marr]
+\ProvidesPackage{collab}[2011/03/22 0.2 Stefan Marr]
 
 \RequirePackage{ifthen}
 \RequirePackage[normalem]{ulem} % for \sout
@@ -97,6 +102,66 @@
 		\nbc{\MakeUppercase{#1} Q:}{##1}{ForestGreen}}%
 }
 % remember: http://tex.stackexchange.com/questions/451/when-to-use-edef-noexpand-and-expandafter
+
+
+%% Trying to add notes to the TOC  --------------------------------
+%% Source: http://tex.stackexchange.com/questions/10188/table-of-contents-with-additional-description-of-entries
+
+\makeatletter
+% Basically the same as for `\l@section` etc, just `\@nodottedtocline` instead of `\@dottedtcline`:
+\newcommand*\l@chapterinfo{\@nodottedtocline{0}{0.0em}{1.5em}}
+\newcommand*\l@sectioninfo{\@nodottedtocline{1}{1.5em}{2.3em}}
+\newcommand*\l@subsectioninfo{\@nodottedtocline{2}{3.8em}{3.2em}}
+\newcommand*\l@subsubsectioninfo{\@nodottedtocline{3}{7.0em}{4.1em}}
+\newcommand*\l@paragraphinfo{\@nodottedtocline{4}{10em}{5em}}
+\newcommand*\l@subparagraphinfo{\@nodottedtocline{5}{12em}{6em}}
+
+% Copied from the book class macro `\@dottedtocline`. Removed the dots and page number
+\def\@nodottedtocline#1#2#3#4#5{%
+  \ifnum #1>\c@tocdepth \else
+    \vskip \z@ \@plus.2\p@
+    {\leftskip #2\relax \rightskip \@tocrmarg \parfillskip -\rightskip
+     \parindent #2\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima #3\relax
+     \advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+     {#4}\nobreak
+     \leaders\hbox{$\m@th
+        \mkern \@dotsep mu\hbox{\,}\mkern \@dotsep
+        mu$}\hfill
+     \nobreak
+     \hb@xt@\@pnumwidth{\hfil\normalfont \normalcolor }%
+     \par}%
+  \fi}
+
+\makeatother
+
+\def\chapterinfo#1{%
+    \addcontentsline{toc}{chapterinfo}{%  this goes into the ToC
+    \noexpand\numberline{}\scriptsize{\textit{#1}}}%
+    \nbc{Sum}{#1}{teal}  % this goes into the body text
+}
+\def\sectioninfo#1{%
+    \addcontentsline{toc}{sectioninfo}{%
+    \noexpand\numberline{}\scriptsize{\textit{#1}}}%
+    \nbc{Sum}{#1}{teal}
+}
+\def\subsectioninfo#1{%
+    \addcontentsline{toc}{subsectioninfo}{%
+    \noexpand\numberline{}\scriptsize{\textit{#1}}}%
+    \nbc{Sum}{#1}{teal}
+}
+\def\subsubsectioninfo#1{%
+    \addcontentsline{toc}{subsubsectioninfo}{%
+    \noexpand\numberline{}\scriptsize{\textit{#1}}}%
+    \nbc{Sum}{#1}{teal}
+}
+%% END: Trying to add notes to the TOC  ---------------------------
+
+
+
+
 
 % author macros --------------------------------------------------------------
 %\collabAuthor{cb}{red}{Camillo Bruni}
