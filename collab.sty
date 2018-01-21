@@ -98,25 +98,25 @@
 \newcommand\DONE[1]{\nbc{DONE}{#1}{gray}}
 \newcommand\REM[1]{\nbc{Remember}{#1}{red}}
 
-\def\collabAuthor#1#2#3#4{%
+\def\collabAuthor#1#2#3{%
 	%Defines three new comments
 	%for example
 	%\collabAuthor{sm}{orange}{Stefan Marr}
 	% results in \sm[1], \smtodo[1], \smdone[1]
-	\expandafter\newcommand\expandafter{\csname #1\endcsname}[1]{%
-		\nbc{\MakeUppercase{#1}}{#4##1}{#2}}%
+  \expandafter\newcommand\expandafter{\csname #1\endcsname}[1]{%
+    \nbc{\MakeUppercase{#1}}{##1}{#2}}%
 
-	\expandafter\newcommand\expandafter{\csname #1todo\endcsname}[1]{%
-		\nbc{\MakeUppercase{#1} TODO}{##1}{#2}}%
+  \expandafter\newcommand\expandafter{\csname #1todo\endcsname}[1]{%
+    \nbc{\MakeUppercase{#1} TODO}{##1}{#2}}%
 
-	\expandafter\newcommand\expandafter{\csname #1done\endcsname}[1]{%
-		\nbc{\MakeUppercase{#1} DONE}{##1}{gray}}%
+  \expandafter\newcommand\expandafter{\csname #1done\endcsname}[1]{%
+    \nbc{\MakeUppercase{#1} DONE}{##1}{gray}}%
 
-	\expandafter\newcommand\expandafter{\csname #1note\endcsname}[1]{%
-		\nbc{\MakeUppercase{#1} Note}{##1}{gray}}%
-	
-	\expandafter\newcommand\expandafter{\csname #1Q\endcsname}[1]{%
-		\nbc{\MakeUppercase{#1} Q:}{##1}{ForestGreen}}%
+  \expandafter\newcommand\expandafter{\csname #1note\endcsname}[1]{%
+    \nbc{\MakeUppercase{#1} Note}{##1}{gray}}%
+
+  \expandafter\newcommand\expandafter{\csname #1Q\endcsname}[1]{%
+    \nbc{\MakeUppercase{#1} Q:}{##1}{ForestGreen}}%
 }
 % remember: http://tex.stackexchange.com/questions/451/when-to-use-edef-noexpand-and-expandafter
 
