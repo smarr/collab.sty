@@ -34,15 +34,6 @@
 % Based on code 'borrowed' from some colaborative work with Camillo Bruni
 
 
-%% LNCS already has a \note macro
-
-\makeatletter
-\@ifundefined{note}{%
-\newenvironment{note}{\obeyspaces\obeylines\tt\frenchspacing\@vobeyspaces}{}%
-}{}
-\makeatother
-
-
 \newcommand{\ra}{\ensuremath{\rightarrow}\xspace}
 
 
@@ -90,10 +81,17 @@
 \newcommand\fix[1]{\nb{FIX}{#1}}
 
 \makeatletter
+%% LNCS already has a \note macro
 \@ifundefined{note}{%
 \newcommand\todo[1]{\nb{TODO}{#1}}%
 }{}
+\@ifundefined{note}{%
+\newenvironment{note}{\obeyspaces\obeylines\tt\frenchspacing\@vobeyspaces}{}%
+}{}
 \makeatother
+
+
+
 \newcommand\todoref[1]{\nb{Add REF}{#1}}
 \newcommand\DONE[1]{\nbc{DONE}{#1}{gray}}
 \newcommand\REM[1]{\nbc{Remember}{#1}{red}}
