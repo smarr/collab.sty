@@ -2,55 +2,75 @@
 \usepackage{collab}
 
 \collabAuthor{sm}{red}{Stefan Marr}
+\collabAuthor{op}{Magenta}{Other Person}
 
 
 \begin{document}
 
 \section{Editing Commands}
 
-\spelling{wrongly spelled}
+\begin{itemize}
+  \item \verb|\spelling{wrongly spelled}| \spelling{wrongly spelled}
 
-\rephrase{please rephrase}
+  \item \verb|\rephrase{please rephrase}| \rephrase{please rephrase}
 
-\ugh{please rephrase}
+  \item \verb|\ugh{please rephrase}| \ugh{please rephrase}
 
-\ins{this should be edit}
+  \item \verb|\ins{this should be edit}| \ins{this should be edit}
 
-\del{suggestion to remove}
+  \item \verb|\del{suggestion to remove}| \del{suggestion to remove}
 
-\chg{old text}{new text}
+  \item \verb|\chg{old text}{new text}| \chg{old text}{new text}
+\end{itemize}
 
 \section{General Todo Commands}
 
-\todo{needs to be done}
+\begin{itemize}
+  \item \verb|\todo{needs to be done}|  \todo{needs to be done}
+  \item \verb|\todoref{add reference}| \todoref{add reference}
+  \item \verb|\DONE{done todo}| \DONE{done todo}
+  \item \verb|\REM{should remember}| \REM{should remember}
+  \item \verb|\rev{2}{this is stupid}| \rev{2}{this is stupid}
+  \item \verb|\fix{Fix this}| \fix{Fix this}
+\end{itemize}
 
-\todoref{add reference}
+For elaborated notes:
 
-\DONE{done todo}
-
-\REM{should remember}
-
-\rev{2}{this is stupid}
-
-\fix{Fix this}
+\begin{verbatim}
+\begin{note}
+- abcde
+- more notes
+\end{note}
+\end{verbatim}
 
 \begin{note}
 - abcde
 - more notes
 \end{note}
 
+
+
 \section{Commands per Person}
 
-The collabAuthor macro can be given a shorthand, which is used to create macros:
+The \verb|collabAuthor| macro can be given a shorthand, which is used to create macros:
+\verb|\collabAuthor{sm}{red}{Stefan Marr}|
 
-\sm{general comment}
+\begin{itemize}
+  \item \verb|\sm{general comment}| \sm{general comment}
+  \item \verb|\smtodo{please do}| \smtodo{please do}
+  \item \verb|\smdone{please do}| \smdone{please do}
+  \item \verb|\smnote{hmmm}| \smnote{hmmm}
+  \item \verb|\smQ{What's this}| \smQ{What's this}
+\end{itemize}
 
-\smtodo{please do}
+Or perhaps \verb|\collabAuthor{op}{purple}{Other Person}|:
 
-\smdone{please do}
-
-\smnote{hmmm}
-
-\smQ{What's this}
+\begin{itemize}
+  \item \verb|\op{general comment}| \op{general comment}
+  \item \verb|\optodo{please do}| \optodo{please do}
+  \item \verb|\opdone{please do}| \opdone{please do}
+  \item \verb|\opnote{hmmm}| \opnote{hmmm}
+  \item \verb|\opQ{What's this}| \opQ{What's this}
+\end{itemize}
 
 \end{document}
