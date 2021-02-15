@@ -11,6 +11,7 @@
 \RequirePackage[normalem]{ulem} % for \sout
 \RequirePackage[svgnames]{xcolor}
 \RequirePackage{xspace}
+\RequirePackage{comment}
 
 \newboolean{showedits}
 \setboolean{showedits}{true}  % toggle to show or hide edits
@@ -65,14 +66,14 @@
 \newcommand{\yellowbox}[1]{
         \fcolorbox{gray}{yellow}{\bfseries\sffamily\scriptsize#1}}
 \newcommand{\triangles}[1]{{
-        \sf\small$\blacktriangleright$\textit{#1}$\blacktriangleleft$}}
+        \sffamily\small$\blacktriangleright$\textit{#1}$\blacktriangleleft$}}
 
 \ifthenelse{\boolean{showcomments}}
 %{\newcommand{\nb}[2]{{\yellowbox{#1}\triangles{#2}}}
 {\newcommand{\nbc}[3]{
  {\colorbox{#3}{\bfseries\sffamily\scriptsize\textcolor{white}{#1}}}
  %{\textcolor{#3}{\sf\small$\blacktriangleright$\textit{#2}$\blacktriangleleft$}}}}
- {\textcolor{#3}{\sf\small\textit{#2}}}}}
+ {\textcolor{#3}{\sffamily\small\textit{#2}}}}}
 {\newcommand{\nbc}[3]{}
 }
 
@@ -87,7 +88,13 @@
 \newcommand\todo[1]{\nb{TODO}{#1}}%
 }{}
 \@ifundefined{note}{%
-\newenvironment{note}{\obeyspaces\obeylines\tt\frenchspacing\@vobeyspaces}{}%
+\ifthenelse{\boolean{showcomments}}
+{
+    \newenvironment{note}{%
+        \obeyspaces\obeylines\ttfamily\frenchspacing\@vobeyspaces}{}%
+}{
+    \excludecomment{note}%
+}
 }{}
 \makeatother
 
